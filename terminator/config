@@ -1,0 +1,150 @@
+[global_config]
+  hide_from_taskbar = True
+  inactive_color_offset = 0.6000000000000001
+  enabled_plugins = CustomCommandsMenu, LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler
+  suppress_multiple_term_dialog = True
+  case_sensitive = False
+[keybindings]
+  broadcast_off = <Primary><Shift>u
+  broadcast_group = <Primary><Shift>h
+  broadcast_all = <Primary><Shift>b
+[profiles]
+  [[default]]
+    background_color = "#18191d"
+    background_darkness = 0.72
+    background_type = image
+    background_image = /home/kali/sync/bg.png
+    cursor_fg_color = "#fbf1c7"
+    cursor_bg_color = "#3c3836"
+    font = Fira Code Medium 11
+    foreground_color = "#f6f5f4"
+    scrollback_lines = 505
+    scrollback_infinite = True
+    palette = "#073642:#dc322f:#859900:#b58900:#268bd2:#d33682:#2aa198:#eee8d5:#002b36:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False
+    title_use_system_font = False
+    title_font = Sans 7
+  [[New Profile]]
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+  [[Pentesting]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 295:174
+      maximised = False
+      fullscreen = False
+      size = 654, 453
+      title = kali@kali: ~
+      last_active_term = 259bdc7e-faf4-4b73-9f0f-acb7bd8d7739
+      last_active_window = True
+    [[[terminal1]]]
+      type = Terminal
+      parent = child0
+      order = 0
+      profile = default
+      uuid = 259bdc7e-faf4-4b73-9f0f-acb7bd8d7739
+      directory = ~/ctf
+  [[pentesting]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 0:35
+      maximised = True
+      fullscreen = False
+      size = 1910, 898
+      title = kali@kali: ~
+      last_active_term = c00d5e62-4ecd-426f-bb94-351995c11ae2
+      last_active_window = True
+    [[[child1]]]
+      type = HPaned
+      parent = child0
+      order = 0
+      position = 952
+      ratio = 0.49973753280839894
+    [[[child2]]]
+      type = VPaned
+      parent = child1
+      order = 0
+      position = 446
+      ratio = 0.49944008958566627
+    [[[terminal3]]]
+      type = Terminal
+      parent = child2
+      order = 0
+      profile = default
+      uuid = 259bdc7e-faf4-4b73-9f0f-acb7bd8d7739
+    [[[terminal4]]]
+      type = Terminal
+      parent = child2
+      order = 1
+      profile = default
+      uuid = 6dd4e4e4-db26-457d-a5b1-49f9cf767298
+    [[[child5]]]
+      type = VPaned
+      parent = child1
+      order = 1
+      position = 446
+      ratio = 0.49944008958566627
+    [[[terminal6]]]
+      type = Terminal
+      parent = child5
+      order = 0
+      profile = default
+      uuid = c00d5e62-4ecd-426f-bb94-351995c11ae2
+    [[[terminal7]]]
+      type = Terminal
+      parent = child5
+      order = 1
+      profile = default
+      uuid = b5504509-6b87-480d-83e1-941d52744263
+  [[ctf]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 0:35
+      maximised = True
+      fullscreen = False
+      size = 1910, 898
+      title = kali@kali: ~/ctf
+      last_active_term = 867726a1-7e2e-4826-b692-206323cfb83d
+      last_active_window = True
+    [[[child1]]]
+      type = HPaned
+      parent = child0
+      order = 0
+      position = 952
+      ratio = 0.49973753280839894
+    [[[terminal2]]]
+      type = Terminal
+      parent = child1
+      order = 0
+      profile = default
+      uuid = 627f4dbd-6a02-4560-8b37-012e9da35f16
+    [[[terminal3]]]
+      type = Terminal
+      parent = child1
+      order = 1
+      profile = default
+      uuid = 867726a1-7e2e-4826-b692-206323cfb83d
+[plugins]
+  [[CustomCommandsMenu]]
+    [[[portscan]]]
+      enabled = True
+      name = portscan
+      command = sudo nmap -sV -A -v -T4 $IP -oA scans/scan
+      position = 0
+    [[[p]]]
+      enabled = True
+      name = p
+      command = pwd
+      position = 1
