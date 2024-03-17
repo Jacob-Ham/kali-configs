@@ -12,7 +12,7 @@ cd /tmp && git clone https://github.com/Jacob-Ham/gbins.git && cd gbins && pip3 
 # install LOLDoors
 cd /tmp && git clone https://github.com/Jacob-Ham/LOLDoors.git && cd LOLDoors && sudo /usr/bin/chmod u+x LOLDoors.py && /usr/bin/sudo /usr/bin/cp -p LOLDoors.py /usr/bin/LOLDoors
 # Go to pcloud download
-firfox 'https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64'
+firefox 'https://www.pcloud.com/how-to-install-pcloud-drive-linux.html?download=electron-64'
 # Install netexec
 sudo apt install pipx git
 pipx ensurepath
