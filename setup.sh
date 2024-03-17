@@ -27,4 +27,5 @@ register-python-argcomplete nxc >> ~/.zshrc
 mkdir -p ~/opt && wget -O ~/opt/Espanso.AppImage 'https://github.com/federico-terzi/espanso/releases/download/v2.1.8/Espanso-X11.AppImage' && chmod u+x ~/opt/Espanso.AppImage && sudo ~/opt/Espanso.AppImage env-path register && espanso service register
 rm ~/.config/espanso/match/base.yml && wget https://raw.githubusercontent.com/Jacob-Ham/kali-configs/main/espanso/base.yml -P ~/.config/espanso/match/ && espanso start
 rm ~/.config/terminator/config && wget https://raw.githubusercontent.com/Jacob-Ham/kali-configs/main/terminator/config -P ~/.config/terminator/
-
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
