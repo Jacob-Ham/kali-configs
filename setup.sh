@@ -3,10 +3,8 @@
 
 # Pimpmykali
 cd /tmp && git clone https://github.com/Dewalt-arch/pimpmykali && sudo bash pimpmykali/pimpmykali.sh
-# Install terminator, dirsearch, remmina
-sudo apt install terminator -y
 sudo apt install dirsearch -y
-sudo apt install remmina -y
+sudo apt install tmux -y
 # install gbins
 cd /tmp && git clone https://github.com/Jacob-Ham/gbins.git && cd gbins && pip3 install -r requirements.txt && sudo /usr/bin/chmod u+x gbins.py && /usr/bin/sudo /usr/bin/cp -p gbins.py /usr/bin/gbins
 # install LOLDoors
