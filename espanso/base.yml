@@ -95,6 +95,15 @@ matches:
   - trigger: ":dirsearch"
     replace: "dirsearch -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 64 -e php,txt,html -f -u "
 
+  - trigger: ":netscan"
+    replace: |
+      sudo nmap -T4 -A -v -o nmap --min-rate 1000 $IP
+      sudo nmap -T4 --script=vuln -v -o vuln --min-rate 1000 $IP
+      sudo nmap -T4 -A -v -p- -o alltcp --min-rate 1000 $IP
+      sudo nmap -T4 -sU -sV -sC -v -p -o udp --min-rate 1000 $IP
+      sudo nmap -A -v -p- -o alltcpslow $IP
+
+
 # REVERSE SHELLS                                                                
   # LINUX
   - trigger: ":rbash"
