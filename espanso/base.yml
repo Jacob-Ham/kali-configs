@@ -102,7 +102,7 @@ matches:
       sudo nmap -T4 -A -v -p- -o alltcp --min-rate 1000 $IP
       sudo nmap -A -v -p- -o alltcpslow $IP
       echo "-----------------------------------------------------"
-      echo "TCP is done, startng udp (slowwwwww)
+      echo "TCP is done, startng udp (slowwwwww)"
       echo "-----------------------------------------------------"
       sudo nmap -T4 -sU -A -vv -p- -o udp --min-rate 1000 $IP
 
