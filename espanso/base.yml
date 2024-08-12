@@ -97,11 +97,14 @@ matches:
 
   - trigger: ":netscan"
     replace: |
-      sudo nmap -T4 -A -v -o nmap --min-rate 1000 $IP
+      sudo nmap -T4 -A -v -o nmap --min-rate 1000 $IP 
       sudo nmap -T4 --script=vuln -v -o vuln --min-rate 1000 $IP
       sudo nmap -T4 -A -v -p- -o alltcp --min-rate 1000 $IP
-      sudo nmap -T4 -sU -sV -sC -v -p -o udp --min-rate 1000 $IP
       sudo nmap -A -v -p- -o alltcpslow $IP
+      echo "-----------------------------------------------------"
+      echo "TCP is done, startng udp (slowwwwww)
+      echo "-----------------------------------------------------"
+      sudo nmap -T4 -sU -A -vv -p- -o udp --min-rate 1000 $IP
 
 
 # REVERSE SHELLS                                                                
