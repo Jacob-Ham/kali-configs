@@ -107,6 +107,20 @@ matches:
       sudo nmap -T4 -sU -A -vv -p- -o udp --min-rate 1000 $IP
 
 
+# AWS Stuff
+
+  - trigger: ":seshauth"
+    replace: |
+      aws configure set aws_session_token "<session token>"
+
+  - trigger: ":unset"
+    replace: |
+      unset AWS_ACCESS_KEY_ID
+      unset AWS_SECRET_ACCESS_KEY
+      unset AWS_SESSION_TOKEN
+
+
+
 # REVERSE SHELLS                                                                
   # LINUX
   - trigger: ":rbash"
