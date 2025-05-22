@@ -184,7 +184,9 @@ matches:
   - trigger: ":rligolo"
     replace: sudo ip route add 192.168.110.0/24 dev ligolo
   - trigger: ":mimi"
-    replace: "privilege::debug" "sekurlsa::logonpasswords" exit
+    replace:   
+           | 
+      "privilege::debug" "sekurlsa::logonpasswords" exit
 
 # EXPLOITS
 
