@@ -151,7 +151,7 @@ matches:
     replace: "$SecPassword = ConvertTo-SecureString 'PASS' -AsPlainText -Force"
 
   - trigger: ":seccred"                                                          
-    replace: '$Cred = New-Object System.Management.Automation.PSCredential(\u0027DOMAIN\USER\u0027, $SecPassword)'
+    replace: $Cred = New-Object System.Management.Automation.PSCredential('DOMAIN\USER', $SecPassword)
 
 # POST
   - trigger: ":pty"
