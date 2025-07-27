@@ -153,6 +153,15 @@ matches:
   - trigger: ":seccred"                                                          
     replace: $Cred = New-Object System.Management.Automation.PSCredential('DOMAIN\USER', $SecPassword)
 
+  - trigger: ":bloodhoundpy"                                                          
+    replace: sudo python3 bloodhound.py -u 'user' -p 'pass' -ns <dc-ip> -d domain.local -c all
+
+
+  - trigger: ":userdesc"                                                          
+    replace: Get-DomainUser -Properties samaccountname,description | Where {$_.description -ne $null}
+
+
+
 # POST
   - trigger: ":pty"
     replace: |
